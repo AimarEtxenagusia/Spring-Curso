@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www:thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{css/estilos.css}">
+</head>
+<body>
+	<div th:replace="~{fragments/comun::cabecera}"></div>
+	<main>
+		<section class="hero">
+			<h1>PAGINA PRINCIPAL</h1>
+			<p>Esta es la pagina inicial de proyecto</p>
+			<label>Introduce tu nombre </label>
+			<input style="padding: 5px; font-size: 15px;">
+			
+		</section>
+	</main>
+	<div th:replace="~{fragments/comun::pie}"></div>
+</body>
+</html>

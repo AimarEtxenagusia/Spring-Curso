@@ -12,15 +12,7 @@ public class MainController {
 		return "inicio";
 	}
 
-	@GetMapping("/categorias")
-	public String mostrar_categorias() {
-		return "categorias";
-	}
 
-	@GetMapping("/productos")
-	public String mostrar_productos() {
-		return "productos";
-	}
 	
 	
 	

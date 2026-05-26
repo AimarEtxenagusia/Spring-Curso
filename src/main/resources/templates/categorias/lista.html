@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www:thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{css/estilos.css}">
+</head>
+<body>
+	<div th:replace="~{fragments/comun::cabecera}"></div>
+	<main>
+		<p>LISTA DE CATEGORIAS</p>
+		<table>
+			<thead>
+				<tr>
+					<th>
+						ID
+					</th>
+					<th>
+						NOMBRE
+					</th>
+				</tr>
+				<tbody>
+					<tr th:each="categoria : ${categorias}">
+						<td th:text="${categoria.id}"></td>
+						<td th:text="${categoria.nombre}"}</td>
+						
+					</tr>
+				</tbody>
+			</thead>
+		</table>
+	</main>
+	<div th:replace="~{fragments/comun::pie}"></div>
+</body>
+</html>

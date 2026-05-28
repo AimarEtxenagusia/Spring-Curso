@@ -33,4 +33,8 @@ public class CategoriaService {
 	public void eliminarPorId( Long id ) {
 		categorias.deleteById(id);
 	}
+	
+	public boolean existeCategoriaNombre( String nombre ) {
+		return categorias.existsByNombre(nombre);
+	}
 }

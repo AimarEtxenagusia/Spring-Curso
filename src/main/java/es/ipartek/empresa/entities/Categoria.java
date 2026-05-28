@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="categorias")
@@ -20,8 +22,10 @@ public class Categoria implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
+	@NotBlank( message = "El nombre no puede ser vacio" )
+	@Size( max = 20, message = "El nombre no puede tener mas de 20 caracteres" )
 	@Column( nullable = false, length = 20, unique = true)
 	private String nombre;
 
@@ -36,11 +40,11 @@ public class Categoria implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

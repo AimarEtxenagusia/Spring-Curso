@@ -7,5 +7,5 @@ import es.ipartek.empresa.entities.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
-	
+	public boolean existsByNombre( String nombre );
 }

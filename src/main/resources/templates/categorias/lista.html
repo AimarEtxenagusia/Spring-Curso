@@ -8,8 +8,9 @@
 <body>
 	<div th:replace="~{fragments/comun::cabecera}"></div>
 	<main>
+		<a th:href="@{categorias/alta}">Añadir categoria</a>
 		<p>LISTA DE CATEGORIAS</p>
-		<table>
+		<table th:unless="${#lists.isEmpty(categorias)}">
 			<thead>
 				<tr>
 					<th>
@@ -20,14 +21,16 @@
 					</th>
 				</tr>
 				<tbody>
-					<tr th:each="categoria : ${categorias}">
-						<td th:text="${categoria.id}"></td>
-						<td th:text="${categoria.nombre}"}</td>
-						
+					<tr th:each="categoria : ${categorias}" th:object="${categoria}">
+						<td th:text="*{id}"></td>
+						<td th:text="*{nombre}"}></td>
+						<td><a th:href="@{/categorias/eliminar/{id}(id=*{id})}" style="padding: 1px; background-color: red; color: white; text-decoration: none;">Eliminar</a>
+						<a th:href="@{/categorias/editar/{id}(id=*{id})}" style="padding: 1px; background-color: blue; color: white; text-decoration: none;">Editar</a></td>
 					</tr>
 				</tbody>
 			</thead>
 		</table>
+		<h3 th:if="${#lists.isEmpty(categorias)}">NO HAY NIGUNA CATEGORIA REGISTRADA</h3>
 	</main>
 	<div th:replace="~{fragments/comun::pie}"></div>
 </body>

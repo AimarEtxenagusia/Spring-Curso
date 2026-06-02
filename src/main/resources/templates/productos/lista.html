@@ -1,15 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www:thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" th:href="@{css/estilos.css}">
+<link rel="stylesheet" th:href="@{/css/estilos.css}">
+<script th:src="@{/js/messagebox.js}" defer></script>
 </head>
 <body>
+	<!-- fragmento de la cabecera -->
 	<div th:replace="~{fragments/comun::cabecera}"></div>
 	<main>
+		<div class="message-box" th:if="${mensaje}" th:text="${mensaje}"></div>
 		<p>LISTA DE PRODUCTOS</p>
+		<a th:href="@{/productos/alta}">ALTA DE PRODUCTO</a>
+		<table>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>ID</th>
+					<th>NOMBRE</th>
+					<th>PRECIO</th>
+					<th>STOCK</th>
+					<th>CATEGORIA</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr 
+					th:each="producto, estado : ${productos}" 
+					th:object="${producto}"
+					th:class="${estado.even}?'fila_par':'fila_impar'">
+					<td th:text="${estado.count}"></td>
+					<td th:text="*{id}"></td>
+					<td th:text="*{nombre}"></td>
+					<td th:text="${#numbers.formatCurrency(producto.precio)}"></td>
+					<td th:text="*{stock}"></td>
+					<td th:text="*{categoria.nombre}"></td>
+					<td><a th:href="@{/productos/editar/{id}(id=*{id})}">Editar</a></td>
+					<td><a th:href="@{/productos/eliminar/{id}(id=*{id})}">Eliminar</a></td>
+				</tr>
+			</tbody>	
+		</table>
 	</main>
+	<!-- fragmento del pie -->
 	<div th:replace="~{fragments/comun::pie}"></div>
 </body>
-</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+	<!-- fragmento de la cabecera -->
+	<div th:replace="~{fragments/comun::cabecera}"></div>
+	<main>
+		<h1>FORMULARIO ALTA PRODUCTO</h1>
+		<form th:action="@{/productos}" th:object="${producto_edicion}" method="post" autocomplete="off">
+			
+			<!-- ID -->
+			<input type="hidden" th:field="*{id}">
+			
+			<div>
+				<label for="nombre">Nombre:</label>
+				<input id="nombre" type="text" th:field="*{nombre}">
+			</div>
+			
+			<div>
+				<label for="precio">Precio</label>
+				<input id="precio" type="text" th:field="*{precio}">
+			</div>
+			
+			<div>
+				<label for="stock">Stock</label>
+				<input id="stock" type="text" th:field="*{stock}">
+			</div>
+			
+			<div>
+				<label>Categoria</label>
+				<select th:field="*{categoria}">
+					<!-- opcion dummy para instruir al usuario -->
+					<option value=''>Seleccionar una categoria</option>
+					<option th:each="categoria : ${categorias}"
+						th:value="${categoria.id}"
+						th:text="${categoria.nombre}">
+				</select>
+			</div>
+			
+			<div>
+				<legend>Origen</legend>
+				<input type="radio" th:field="*{origen}" value="N"><label>NACIONAL</label>
+				<input type="radio" th:field="*{origen}" value="I"><label>INTERNACIONAL</label>
+			</div>
+			
+			<div>
+				<input type="checkbox" th:field="*{comercializado}"><label>Comercializado</label>
+			</div>
+			
+			<div>
+				<fieldset>Descripcion</fieldset>
+				<textarea rows="10" cols="60" th:field="*{descripcion}"></textarea>
+			</div>
+			
+			<div>
+				<fieldset th:if="${#fields.hasErrors('all')}" class="alert alert-danger">
+					<legend>Errores</legend>
+					<ul>
+						<li th:each="err : ${#fields.errors('all')}" th:text="${err}"></li>
+					</ul>
+				</fieldset>
+			</div>
+		
+			<input type="submit" value="Enviar">
+			
+		</form>
+	</main>
+	<!-- fragmento del pie -->
+	<div th:replace="~{fragments/comun::pie}"></div>
+</body>

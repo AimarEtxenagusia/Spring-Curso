@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Nueva categoria</title>
+	<link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+	<div th:replace="~{fragments/comun::cabecera}"></div>
+	<main>
+		<h1>FORMULARIO</h1>
+		<form th:action="@{/categorias/alta}" th:object="${nueva_categoria}" method="post">
+			<input th:field="*{id}" type="hidden">
+			<div>
+				<label for="categoria">
+					Nombre de la categoria
+				</label>
+				<input type="text" id="categoria" th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'error' : ''">
+				<span th:if="${#fields.hasErrors('nombre')}"
+					th:errors="*{nombre}" class="error-message"></span>
+			</div>
+			<input type="submit" value="Confirmar">
+		</form>
+	</main>
+	<div th:replace="~{fragments/comun::pie}"></div>
+</body>
+</html>

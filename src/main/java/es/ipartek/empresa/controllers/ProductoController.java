@@ -1,5 +1,6 @@
 package es.ipartek.empresa.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.ipartek.empresa.entities.Categoria;
@@ -27,9 +29,19 @@ public class ProductoController {
 	@Autowired CategoriaService categoriaService; 
 	
 	@GetMapping
-	public String listar( Model modelo) {
-		List<Producto> productos = productoService.obtenerTodos();
+	public String listar( Model modelo, @RequestParam( required = false ) Long categoria) {
+		List<Producto> productos = new ArrayList<>();
+		
+		if(categoria == null) {
+			productos = productoService.obtenerTodos();
+		} else {
+			productos = productoService.obtenerProductosPorCategoria(categoria);
+			
+		}
+
+		modelo.addAttribute("categoria", categoria);
 		modelo.addAttribute("productos", productos);
+		
 		return "productos/lista"; 
 	}
 	

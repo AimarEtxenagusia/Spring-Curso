@@ -2,6 +2,7 @@ package es.ipartek.empresa.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	// Recuperar todos los productos con una categoria ID
 	public List<Producto> findAllByCategoriaId( Long id );
 	
-	// Recuperar todos los productos con parte del nombre indicado
-	public List<Producto> findAllByNombreContainingIgnoreCase(String nombre);
+	// Recuperar todos los productos con parte del nombre 
+	public List<Producto> findAllByNombreContainingIgnoreCase( String nombre ); 
+	public List<Producto> findAllByNombreContainingIgnoreCase( String nombre, Sort campo ); 
+		
 }

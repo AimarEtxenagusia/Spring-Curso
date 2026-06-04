@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.ipartek.empresa.dto.Filtro;
 import es.ipartek.empresa.entities.Categoria;
 import es.ipartek.empresa.entities.Producto;
 import es.ipartek.empresa.services.CategoriaService;
@@ -39,10 +40,20 @@ public class ProductoController {
 			
 		}
 
-		modelo.addAttribute("categoria", categoria);
+		modelo.addAttribute("filtro", new Filtro()); 
+
 		modelo.addAttribute("productos", productos);
 		
 		return "productos/lista"; 
+	}
+	
+	@GetMapping("/filtrar")
+	public String filtrar( Model modelo, @ModelAttribute Filtro filtro ) {
+		// Lista de productos filtrados y ordenados segun los valores del objeto Filtro
+		List<Producto> productos = productoService.obtenerFiltrados(filtro);
+		modelo.addAttribute("productos", productos);
+		modelo.addAttribute("filtro", filtro);
+		return "productos/lista";
 	}
 	
 	@GetMapping("/alta")

@@ -14,6 +14,20 @@
 		<p>LISTA DE PRODUCTOS</p>
 		<a th:href="@{/productos/alta}">ALTA DE PRODUCTO</a>
 		
+		<form th:action="@{/productos/filtrar}" th:object="${filtro}" method="get">
+			<div>
+				<label for="nombre">Nombre de producto</label>
+				<input type="text" id="nombre" th:field="*{nombre}">
+			</div>
+			<div>
+				<input type="radio" th:field="*{ordenado}" value="CAROS">Los mas caros
+				<input type="radio" th:field="*{ordenado}" value="BARATOS">Los mas baratos
+				<input type="radio" th:field="*{ordenado}" value="STOCK">Segun Stock
+				<input type="radio" th:field="*{ordenado}" value="CATEGORIA">Segun Categoria
+			</div>
+			<input type="submit" value="FILTRAR">
+		</form>
+		
 		<table>
 			<thead>
 				<tr>
@@ -42,6 +56,7 @@
 				</tr>
 			</tbody>	
 		</table>
+		<p th:if="${#lists.isEmpty(productos)}">NO HAY PRODUCTOS</p>
 	</main>
 	<!-- fragmento del pie -->
 	<div th:replace="~{fragments/comun::pie}"></div>

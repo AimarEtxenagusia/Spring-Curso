@@ -3,6 +3,7 @@ package es.ipartek.empresa.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import es.ipartek.empresa.dto.Filtro;
@@ -36,9 +37,21 @@ public class ProductoService {
 		return productos.findAllByCategoriaId(id);
 	}
 	
-	//public List<Producto> obtenerFiltrados( Filtro filtro ){
-	//	if( filtro.getOrdenado().equals("CAROS"))
-	//}
+	public List<Producto> obtenerFiltrados( Filtro filtro ) {
+		switch( filtro.getOrdenado() ) {
+			case "CAROS": 
+				return productos.findAllByNombreContainingIgnoreCase(filtro.getNombre(), Sort.by(Sort.Direction.DESC, "precio"));
+			case "BARATOS": 
+				return productos.findAllByNombreContainingIgnoreCase(filtro.getNombre(), Sort.by(Sort.Direction.ASC, "precio"));
+			case "STOCK": 
+				return productos.findAllByNombreContainingIgnoreCase(filtro.getNombre(), Sort.by(Sort.Direction.DESC, "stock"));
+			case "CATEGORIA": 
+				return productos.findAllByNombreContainingIgnoreCase(filtro.getNombre(), Sort.by(Sort.Direction.DESC, "categoria"));
+			default: 
+				return productos.findAllByNombreContainingIgnoreCase(filtro.getNombre());				
+		}
+	}
+
 	
 	
 	
